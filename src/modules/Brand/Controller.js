@@ -23,7 +23,6 @@ const get = (req,res) => {
 
 const store = (req,res) => {   
     var brandData ={
-        brand_id : req.body.brand_id,
         name : req.body.name,
     }
     brandData = new BrandModel(brandData)
@@ -51,7 +50,6 @@ const getById = (req,res)=>{
 const update = (req,res)=>{
     BrandModel.findByIdAndUpdate({_id : req.params.id},{ 
         $set :{
-            brand_id : req.body.brand_id,
             name : req.body.name,
         }
     },(err,result)=>{
