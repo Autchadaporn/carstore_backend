@@ -7,10 +7,10 @@ const BrandModel = require('../../models/Brand')
 const get = (req,res) => {
     BrandModel.find({})
     .then(result=>{
-        res.json(result)
+        res.status(200).json(result)
     })
     .catch(err=>{
-        res.send('error')
+        res.status(500).send('error')
     })
 }
 
@@ -21,8 +21,7 @@ const store = (req,res) => {
     brandData = new BrandModel(brandData)
     brandData.save() // save ลง database 
     .then(result => {
-        // console.log(brandData)
-        res.send('item saved to database'); // ส่งไปที่ postman    
+        res.status(201).send('item saved to database')
       })
     .catch(err => {
         res.status(500).send('unable to save to database');
@@ -31,12 +30,12 @@ const store = (req,res) => {
 
  
 const getById = (req,res)=>{
-    BrandModel.findOne({_id : req.params.id})
+    BrandModel.findById({_id : req.params.id})
     .then( result => {
-        res.json(result)
+        res.status(200).json(result)
     })
     .catch( err =>{
-        res.send(err)
+        res.status(500).send('Error!')
     })
 }
 
@@ -49,10 +48,10 @@ const update = async(req,res)=>{
     }
     await BrandModel.findByIdAndUpdate(id,updateName,{new:true})
     .then(result =>{
-        res.json(result)
+        res.status(200).send('Update successfully')
     })
     .catch(err =>{
-        res.send(err)
+        res.status(500).send('Could not update')
     })
 }
 
@@ -61,10 +60,10 @@ const remove = async(req,res)=>{
 
     await BrandModel.deleteOne({_id:id})
     .then (result =>{
-        res.json(result)
+        res.status(200).send('Deleted successfully')
     })
     .catch (err => {
-        res.send(err)
+        res.status(500).send(err)
     })
 }
 
