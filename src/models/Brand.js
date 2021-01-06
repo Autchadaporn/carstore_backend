@@ -3,8 +3,6 @@ const Schema = mongoose.Schema;
 
 const brandSchema = new Schema({
     name:String,
-},{
-    collection: 'carstore' //dbcollectionname
 });
 
 

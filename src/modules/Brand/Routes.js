@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const express = require('express');
 const app = express();
-const brandController = require('./Controller');
+const brandController = require('./controller');
 var router = express.Router();
 
 
