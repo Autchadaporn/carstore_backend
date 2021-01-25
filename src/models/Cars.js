@@ -4,13 +4,11 @@ const Schema = mongoose.Schema;
 const carSchema = new Schema({
     model:String,
     color:String,
-    license_plate:String,
+    licensePlate:String,
     price:String,
-},{
-    collection: 'carstore' //dbcollectionname
 });
 
 
-const CarModel = mongoose.model('Brand',carSchema)
+const CarModel = mongoose.model('Car',carSchema)
 
 module.exports = CarModel;

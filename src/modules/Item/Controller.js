@@ -1,9 +1,9 @@
 const db = require('../../config/db')
-const { collection } = require('../../models/Admin')
-const adminModel = require('../../models/Admin')
+const { collection } = require('../../models/Items')
+const itemModel = require('../../models/Items')
 
 const get =(req,res)=> {
-    adminModel.find({})
+    itemModel.find({})
     .then(result => {
         res.status(200).json(result)
     })
@@ -13,14 +13,12 @@ const get =(req,res)=> {
 }
 
 const store =(req,res) => {
-    var adminData = {
-        fristName : req.body.fristName,
-        lastName : req.body.lastName,
-        email : req.body.email,
-        password : req.body.password,
+    var itemData = {
+        carId : req.body.carId,
+        price : req.body.price,
     }
-    adminData = new adminModel(adminData)
-    adminData.save() 
+    itemData = new itemModel(itemData)
+    itemData.save() 
     .then(result => {
         res.status(201).send('item saved to database')
       })
@@ -30,7 +28,7 @@ const store =(req,res) => {
 }
 
 const getById = (req,res) => {
-    adminModel.findById({_id : req.params.id})
+    itemModel.findById({_id : req.params.id})
     .then( result => {
         res.status(200).json(result)
     })
@@ -41,15 +39,13 @@ const getById = (req,res) => {
 
 const update = async(req,res) => {
     const id  = { _id :req.params.id} 
-    const updateAdmin = {
+    const updateItem = {
         $set:{
-            fristName : req.body.fristName,
-            lastName : req.body.lastName,
-            email : req.body.email,
-            password : req.body.password,
+            carId : req.body.carId,
+            price : req.body.price,
         }
     }
-    await adminModel.findByIdAndUpdate(id,updateAdmin,{new:true})
+    await itemModel.findByIdAndUpdate(id,updateItem,{new:true})
     .then(result => {
         res.status(201).send('Update successfully')
     })
@@ -60,7 +56,7 @@ const update = async(req,res) => {
 
 const remove = async(req,res) => {
     const id = req.params.id
-    await adminModel.deleteOne({_id:id})
+    await itemModel.deleteOne({_id:id})
     .then (result => {
         res.status(200).send('Deleted successfully')
     })
