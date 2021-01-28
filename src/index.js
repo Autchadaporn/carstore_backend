@@ -1,26 +1,34 @@
 const express = require('express');
 var mongoose = require('./config/db');
 const app = express();
-const path = require('path') // เรียกใช้ module path 
+const path = require('path'); // เรียกใช้ module path 
+var handlebars = require('express-handlebars'); // เรียกใช้ handlebar เป็น template engine
 const brand = require('./modules/Brand/Routes');
 const admin = require('./modules/Admin/Routes');
 const customer = require('./modules/Customer/Routes');
 const item = require('./modules/Item/Routes');
 const order = require('./modules/Order/Routes');
 const car = require('./modules/Car/Routes');
-// const { nextTick } = require('process');
+
 app.use(express.json())
+const bodyParser = require('body-parser');
+const { static } = require('express');
+app.use(bodyParser.json());
+app.use('/upload/',express.static('upload'));
 
-const bodyParser = require('body-parser')
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-
+app.set('views', __dirname + '/views'); // general config
+app.set('view engine','hbs');
 
 
 app.get('/', (req, res) => {
-  res.send('Hello World !')
-
+  // res.send('Hello World !')
+  res.render('index',{
+    title : 'Hi',
+    topic : 'Car Store '
+  })
 })
+
+
 app.use('/brands',brand)
 app.use('/admin',admin)
 app.use('/customer',customer)

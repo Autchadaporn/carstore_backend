@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const brandSchema = new Schema({
-    name:String,
+    name : String ,
 });
 
 
-const BrandModel = mongoose.model('Brand',brandSchema)
+const brandModel = mongoose.model('Brand',brandSchema)
 
-module.exports = BrandModel;
+module.exports = brandModel;

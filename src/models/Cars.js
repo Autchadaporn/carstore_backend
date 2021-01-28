@@ -2,13 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const carSchema = new Schema({
-    model:String,
-    color:String,
-    licensePlate:String,
-    price:String,
+    brandId      : String,
+    adminId      : String,
+    model        : String,
+    color        : String,
+    licensePlate : String,
+    price        : String,
+    carImage     : String,
 });
 
 
-const CarModel = mongoose.model('Car',carSchema)
+const carModel = mongoose.model('Car',carSchema)
 
-module.exports = CarModel;
+module.exports = carModel;
