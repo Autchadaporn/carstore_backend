@@ -10,11 +10,12 @@ const item = require('./modules/Item/Routes');
 const order = require('./modules/Order/Routes');
 const car = require('./modules/Car/Routes');
 
-app.use(express.json())
+app.use(express.json());
 const bodyParser = require('body-parser');
 const { static } = require('express');
 app.use(bodyParser.json());
-app.use('/upload/',express.static('upload'));
+
+app.use('/car',express.static('src/upload'));
 
 app.set('views', __dirname + '/views'); // general config
 app.set('view engine','hbs');
@@ -25,20 +26,24 @@ app.get('/', (req, res) => {
   res.render('index',{
     title : 'Hi',
     topic : 'Car Store '
-  })
+  });
+});
+
+app.get('/addcar',(req,res)=> {
+  res.render('Car/Formadd')
 })
 
 
-app.use('/brands',brand)
-app.use('/admin',admin)
-app.use('/customer',customer)
-app.use('/item',item)
-app.use('/order',order)
-app.use('/car',car)
+app.use('/brands',brand);
+app.use('/admin',admin);
+app.use('/customer',customer);
+app.use('/item',item);
+app.use('/order',order);
+app.use('/car',car);
 
 
 app.listen(3000, () => {
-  console.log('Start server at port 3000.')
-})
+  console.log('Start server at port 3000.');
+});
 
-mongoose()
+mongoose();

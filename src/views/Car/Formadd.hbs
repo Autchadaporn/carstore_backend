@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADD CAR</title>
+</head>
+<body>
+    <form action="/car/store" method="POST">
+        Brand:  <select>
+                    {{!-- {{# each }} --}}
+                    <option value=" {{ this.id }}">{{ this.name}}</option>
+                    {{!-- {{/each }} --}}
+                </select><br>
+        model: <input type="text" name="model" value=""><br>
+        Color: <input type="text" name="color" value=""><br>
+        License plate: <input type="text" name="licensePlate" value=""><br>
+        Price: <input type="text" name="price" value=""><br>
+        Image: <input type="file" name="carImage" value="">
+        <input type="submit" value="ADD">
+    </form>
+    
+</body>
+</html>

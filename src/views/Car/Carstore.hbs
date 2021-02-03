@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    
+    <title>Document</title>
+</head>
+<body>
+    <h1>CAR STORE</h1>
+    {{# each result }}
+    {{!-- {{ this._id }}
+    <img src="{{ this.carImage }}"><br> --}}
+    
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{ this.carImage}}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <label>Brand</label><li class="list-group-item">{{ this.brandId }}</li>
+            <label>Model</label><li class="list-group-item">{{ this.model }}</li>
+            <label>Price</label><li class="list-group-item">{{ this.price }}</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">Edit</a>
+            <a href="#" class="card-link">Delete</a>
+        </div>
+    </div>
+    {{/each }}
+    <a href="/addcar">+</a>
+</body>
+</html>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
