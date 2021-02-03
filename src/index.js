@@ -1,5 +1,6 @@
 const express = require('express');
 var mongoose = require('./config/db');
+var exphbs  = require('express-handlebars');
 const app = express();
 const path = require('path') // เรียกใช้ module path 
 const brand = require('./modules/Brand/Routes');
@@ -10,13 +11,12 @@ const order = require('./modules/Order/Routes');
 const car = require('./modules/Car/Routes');
 // const { nextTick } = require('process');
 app.use(express.json())
-
+app.use(express.static('views'))
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-
-
+app.set('view engine','hbs')
 app.get('/', (req, res) => {
   res.send('Hello World !')
 

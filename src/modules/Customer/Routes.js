@@ -10,6 +10,7 @@ router.post('/store',customerController.store)
 router.get('/:id',customerController.getById)
 router.put('/:id',customerController.update)
 router.delete('/:id',customerController.remove)
+router.get('/register',customerController.register)
     
 
 module.exports = router;  

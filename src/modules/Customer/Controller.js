@@ -71,11 +71,15 @@ const remove = async(req,res) => {
     })
 }
 
+const register = (req,res) => {
+    res.render('../../views/register.hbs')
+}
 
 module.exports={
     get, 
     store,
     getById,
     update,
-    remove
+    remove,
+    register,
 }
