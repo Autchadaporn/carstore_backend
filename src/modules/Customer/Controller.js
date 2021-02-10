@@ -1,6 +1,12 @@
-const db = require('../../config/db')
+const passport = require('passport');
+const db = require('../../config/db');
+const customerModel = require('../../models/Customers');
+const bcrypt = require('bcrypt-nodejs');
+const { head } = require('./Routes');
+const { translateAliases } = require('../../models/Customers');
+const { render } = require('ejs');
 
-const customerModel = require('../../models/Customers')
+
 
 const get =(req,res)=> {
     customerModel.find({})
@@ -12,23 +18,30 @@ const get =(req,res)=> {
     })
 }
 
-const store =(req,res) => {
-    var customerData = {
-        fristName : req.body.fristName,
-        lastName : req.body.lastName,
-        email : req.body.email,
-        password : req.body.password,
-        phoneNumber : req.body.phoneNumber,
-    }
-    customerData = new customerModel(customerData)
-    customerData.save() 
+const store = async(req,res) => {
+    const { fristName, lastName, phoneNumber, email, password} = await req.body
+    const salt = bcrypt.genSaltSync(10);
+    const passwordHash = bcrypt.hashSync(password, salt) //hash password $2a$10$yZwDB9y3wlPIkXfujOqF8OgZJlY/W2cfy2wgoVoWHiOEtCDPGDtZe'
+    // console.log(passwordHash)
+    const customerData = new customerModel({
+        fristName : fristName,
+        lastName : lastName,
+        phoneNumber : phoneNumber ,
+        email : email ,  
+        password : passwordHash ,      
+    })
+    await customerData.save()
     .then(result => {
-        res.status(201).send('item saved to database')
-      })
+        res.send(result)
+        // res.status(201).send('item saved to database')
+    })
     .catch(err => {
-        res.status(500).send('unable to save to database');
-      });
-}
+        // res.status(500).send('unable to save to database');
+        console.log(err)
+        res.send(err)
+    });
+} 
+
 
 const getById = (req,res) => {
     customerModel.findById({_id : req.params.id})
@@ -46,9 +59,10 @@ const update = async(req,res) => {
         $set:{
             fristName : req.body.fristName,
             lastName : req.body.lastName,
+            phoneNumber : req.body.phoneNumber,
             email : req.body.email,
             password : req.body.password,
-            phoneNumber : req.body.phoneNumber,
+            
         }
     }
     await customerModel.findByIdAndUpdate(id,updateCustomer,{new:true})
@@ -71,11 +85,28 @@ const remove = async(req,res) => {
     })
 }
 
-
+const login = async(req,res) => {
+    console.log('-----------')
+    const email = await req.body.email
+    const password = await req.body.password
+    console.log(`email:${email} || password:${password}`)
+    const user = await customerModel.find({email:email})
+    if (user == null || user == undefined ){
+        res.send('ไม่มี email')
+    }else if ( user.length > 0 ) {
+        console.log(`user=>> ${user}`)
+        const passwordHash =  bcrypt.compareSync(password,user[0].password) // เปรียบเทียบ password ที่ถูก Hash 
+            if ( passwordHash == true ) {res.render('Carstore.hbs') } // รหัสผ่านถูกต้อง
+            else if ( passwordHash == false ){res.render('login.hbs')} // รหัสผ่านไม่ถูกต้อง
+    }else{
+       res.send('else')
+    }     
+}
 module.exports={
     get, 
     store,
     getById,
     update,
-    remove
+    remove,
+    login,
 }
