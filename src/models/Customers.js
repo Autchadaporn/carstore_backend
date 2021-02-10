@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
+const bcrypt = require('bcrypt-nodejs');
+
 
 const customerSchema = new Schema({
-    fristName:String,
-    lastName:String,
-    email:String,
-    password:String,
-    phoneNumber:String,
+    fristName: {type: String},
+    lastName: {type: String},
+    phoneNumber: {type: String},
+    email: {type: String},
+    password: {type: String, required:true},    
 });
 
-
-const customerModel = mongoose.model('Customer',customerSchema)
+const customerModel = mongoose.model('Customers',customerSchema);
 
 module.exports = customerModel;

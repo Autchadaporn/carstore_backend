@@ -14,6 +14,7 @@ const get =(req,res)=> {
 
 const store =(req,res) => {
     var orderData = {
+        orderId : req.body.orderId ,
         itemId : req.body.itemId,
         customerId : req.body.customerId,
         date : req.body.date,
@@ -44,6 +45,7 @@ const update = async(req,res) => {
     const id  = { _id :req.params.id} 
     const updateOrder = {
         $set:{
+            orderId : req.body.orderId ,
             itemId : req.body.itemId,
             customerId : req.body.customerId,
             date : req.body.date,

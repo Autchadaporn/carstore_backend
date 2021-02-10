@@ -1,5 +1,6 @@
 // // const express = require('express');
 const mongoose = require('mongoose'); // ใช้ module mongoose db 
+var grid = require('gridfs-stream')
 
 const uri = 'mongodb://mongo:27017/carstore';
 // const dbName = 'carstore' // ระบุ url ที่ต้องการ connect 

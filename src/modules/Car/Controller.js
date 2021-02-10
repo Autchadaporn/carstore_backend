@@ -2,6 +2,7 @@ const db = require('../../config/db')
 const { collection } = require('../../models/Cars')
 const carModel = require('../../models/Cars')
 
+
 const get =(req,res)=> {
     carModel.find({})
     .then(result => {
@@ -12,15 +13,18 @@ const get =(req,res)=> {
     })
 }
 
-const store =(req,res) => {
+const store = async(req,res) => {
     var carData = {
+        brandId : req.body.brandId,
+        adminId : req.body.adminId,
         model : req.body.model,
         color : req.body.color,
         licensePlate : req.body.licensePlate,
         price : req.body.price,
+        carImage : req.file.path,
     }
     carData = new carModel(carData)
-    carData.save() 
+    await carData.save() 
     .then(result => {
         res.status(201).send('item saved to database')
       })
@@ -43,10 +47,13 @@ const update = async(req,res) => {
     const id  = { _id :req.params.id} 
     const updateCar = {
         $set:{
+            brandId : req.body.brandId,
+            adminId : req.body.adminId,
             model : req.body.model,
             color : req.body.color,
             licensePlate : req.body.licensePlate,
             price : req.body.price,
+            carImage : req.file.path,
         }
     }
     await carModel.findByIdAndUpdate(id,updateCar,{new:true})
