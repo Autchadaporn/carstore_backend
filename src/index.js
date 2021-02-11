@@ -16,29 +16,20 @@ const customer = require('./modules/Customer/Routes');
 const item = require('./modules/Item/Routes');
 const order = require('./modules/Order/Routes');
 const car = require('./modules/Car/Routes');
-<<<<<<< HEAD
 // const { nextTick } = require('process');
 app.use(express.json())
 app.use(express.static('views'))
-const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.set('view engine','hbs')
-=======
-
-app.use(express.json())
 const bodyParser = require('body-parser');
 const { static } = require('express');
 const { session } = require('passport');
-app.use(bodyParser.json());
 app.use('/upload/',express.static('upload'));
 
 app.set('views', __dirname + '/views'); // general config
 app.set('view engine','hbs');
 
-
->>>>>>> feature/register
 app.get('/', (req, res) => {
   res.send('Hello World !')
   // res.render('login');
