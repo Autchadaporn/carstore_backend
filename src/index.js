@@ -19,33 +19,44 @@ const car = require('./modules/Car/Routes');
 // const { nextTick } = require('process');
 app.use(express.json())
 app.use(express.static('views'))
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 const { static } = require('express');
 const { session } = require('passport');
 app.use('/upload/',express.static('upload'));
+app.use(bodyParser.json());
+
+app.use('/car',express.static('src/upload'));
 
 app.set('views', __dirname + '/views'); // general config
 app.set('view engine','hbs');
 
 app.get('/', (req, res) => {
-  res.send('Hello World !')
-  // res.render('login');
+
+  // res.send('Hello World !')
+  res.render('index',{
+    title : 'Hi',
+    topic : 'Car Store '
+  });
 });
 
+app.get('/addcar',(req,res)=> {
+  res.render('Car/Formadd')
+})
 
 
-app.use('/brands',brand)
-app.use('/admin',admin)
-app.use('/customer',customer)
-app.use('/item',item)
-app.use('/order',order)
-app.use('/car',car)
+app.use('/brands',brand);
+app.use('/admin',admin);
+app.use('/customer',customer);
+app.use('/item',item);
+app.use('/order',order);
+app.use('/car',car);
 
 
 app.listen(3000, () => {
-  console.log('Start server at port 3000.')
-})
+  console.log('Start server at port 3000.');
+});
 
-mongoose()
+mongoose();
