@@ -6,8 +6,8 @@ const carModel = require('../../models/Cars')
 const get =(req,res)=> {
     carModel.find({})
     .then(result => {
-        // res.status(200).render('Car/Carstore',{result:result})
-        res.status(200).json(result)
+        res.status(200).render('Car/Carstore',{result:result})
+        // res.status(200).json(result)
     })
     .catch(err => {
         res.status(500).send('error')
