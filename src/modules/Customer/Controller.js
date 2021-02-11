@@ -85,12 +85,10 @@ const remove = async(req,res) => {
     })
 }
 
-<<<<<<< HEAD
 const register = (req,res) => {
     res.render('../../views/register.hbs')
 }
 
-=======
 const login = async(req,res) => {
     console.log('-----------')
     const email = await req.body.email
@@ -108,16 +106,12 @@ const login = async(req,res) => {
        res.send('else')
     }     
 }
->>>>>>> feature/register
 module.exports={
     get, 
     store,
     getById,
     update,
     remove,
-<<<<<<< HEAD
     register,
-=======
     login,
->>>>>>> feature/register
 }

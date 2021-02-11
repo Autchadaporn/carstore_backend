@@ -19,10 +19,9 @@ const car = require('./modules/Car/Routes');
 // const { nextTick } = require('process');
 app.use(express.json())
 app.use(express.static('views'))
+const bodyParser = require('body-parser');
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
-const bodyParser = require('body-parser');
 const { static } = require('express');
 const { session } = require('passport');
 app.use('/upload/',express.static('upload'));
