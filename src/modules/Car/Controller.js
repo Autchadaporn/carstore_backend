@@ -45,19 +45,20 @@ const getById = (req,res) => {
 }
 
 const update = async(req,res) => {
-    const _id = {_id: req.params.id}
-    console.log(typeof _id)
-    const updateCar = {
+    const _id = {_id:req.params.id}
+    var updateCar = {
         $set:{
-            brandId :  req.body.brandId,
-            adminId :  req.body.adminId ,
-            model :  req.body.model,
-            color :  req.body.color,
-            licensePlate :  req.body.licensePlate,
-            price :  req.body.price,
-            carImage : req.body.carImage,
+            _id : req.params.id ,
+            brandId : req.body.brandId ,
+            adminId : req.body.adminId ,
+            model : req.body.model,
+            color : req.body.color,
+            licensePlate : req.body.licensePlate,
+            price : req.body.price,
+            carImage : req.body.filename,
         }
     }
+    console.log(updateCar)
     await carModel.updateOne(_id,updateCar,{new:true})
     .then(result => {
         res.status(201).send('Update successfully')

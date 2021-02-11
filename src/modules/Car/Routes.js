@@ -22,7 +22,7 @@ const upload = multer({
 
 
 
-router.get('/store',carController.get)
+router.get('/',carController.get)
 router.post('/store',upload.single('carImage'),carController.store)
 router.get('/store/:id',carController.getById)
 router.put('/store/:id',carController.update)
