@@ -28,6 +28,7 @@ router.post('/update/',carController.update) // update data
 router.get('/edit/:id',carController.editId) // get data from ID
 router.post('/updateId',upload,carController.updateId) // update by ID
 router.delete('/store/:id',carController.remove)
+router.get('/delete/:id',carController.deleteId)
 
     
 

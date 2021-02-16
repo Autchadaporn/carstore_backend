@@ -31,7 +31,8 @@ const store = async(req,res) => {
     carData = new carModel(carData)
     await carData.save() 
     .then(result => {
-        res.status(201).send('item saved to database')
+        // res.status(201).send('item saved to database')
+        res.redirect('/car/')
       })
     .catch(err => {
         res.status(500).send('unable to save to database');
@@ -122,6 +123,17 @@ const updateId = async(req,res) => {
     })
 }
 
+const deleteId = async(req,res) =>{
+    const _id ={_id:req.params.id}
+    console.log(_id)
+    await carModel.deleteOne(_id)
+    .then(result =>{
+        res.redirect('/car/')
+    })
+    .catch(err => {
+        res.send(err),json(err)
+    })
+}
 module.exports={
     get, 
     store,
@@ -129,5 +141,6 @@ module.exports={
     update,
     remove,
     editId,
-    updateId
+    updateId,
+    deleteId
 }
