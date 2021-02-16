@@ -1,6 +1,10 @@
+const { rejects } = require('assert')
+const { json } = require('body-parser')
+const { error } = require('console')
 const db = require('../../config/db')
 const { collection } = require('../../models/Cars')
 const carModel = require('../../models/Cars')
+const { options } = require('./Routes')
 
 
 const get =(req,res)=> {
@@ -78,12 +82,52 @@ const remove = async(req,res) => {
         res.status(500).send(err)
     })
 }
-
+const editId =(req,res)=>{
+    carModel.findById({_id:req.params.id},(err,data)=>{
+        if (err) {
+            throw err
+        }
+        res.render('Car/Formupdate',{data:data})
+    })
+}
+const updateId = async(req,res) => {
+    const _id = {_id:req.body.id}
+    if (req.file){
+        const image = req.file.filename
+        var dataUpdate = {
+            brandId : req.body.brandId ,
+            adminId : req.body.adminId ,
+            model : req.body.model,
+            color : req.body.color,
+            licensePlate : req.body.licensePlate,
+            price : req.body.price,
+            carImage : image
+        }
+    }else{
+        var dataUpdate = {
+            brandId : req.body.brandId ,
+            adminId : req.body.adminId ,
+            model : req.body.model,
+            color : req.body.color,
+            licensePlate : req.body.licensePlate,
+            price : req.body.price,
+        }
+    }
+    await carModel.updateOne(_id,{$set:dataUpdate},{new:true})
+    .then(result => {
+        res.redirect('/car/')
+    })
+    .catch(err => {
+        res.send(err),json(err)
+    })
+}
 
 module.exports={
     get, 
     store,
     getById,
     update,
-    remove
+    remove,
+    editId,
+    updateId
 }

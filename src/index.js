@@ -26,20 +26,17 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const { static } = require('express');
 const { session } = require('passport');
 app.use('/upload/',express.static('upload'));
+
 app.use(bodyParser.json());
 
 app.use('/car',express.static('src/upload'));
+app.use('/car/edit',express.static('src/upload'));
 
 app.set('views', __dirname + '/views'); // general config
 app.set('view engine','hbs');
 
 app.get('/', (req, res) => {
-
-  // res.send('Hello World !')
-  res.render('index',{
-    title : 'Hi',
-    topic : 'Car Store '
-  });
+  res.send('Hello World !')
 });
 
 app.get('/addcar',(req,res)=> {

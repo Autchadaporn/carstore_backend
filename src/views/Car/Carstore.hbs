@@ -10,28 +10,33 @@
 </head>
 <body>
     <h1>CAR STORE</h1>
+    <form action="" method="GET">
     {{# each result }}
     {{!-- {{ this._id }}
     <img src="{{ this.carImage }}"><br> --}}
     
     <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="{{ this.carImage }}" alt="Card image cap">
+        <img class="card-img-top" src="{{ this.carImage }}" alt="Card image cap" width="120">
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         </div>
         <ul class="list-group list-group-flush">
+            <label>id</label><li class="list-group-item"><input type="text" value="{{ this._id }}" name="_id" readonly ></li>
             <label>Brand</label><li class="list-group-item">{{ this.brandId }}</li>
             <label>Model</label><li class="list-group-item">{{ this.model }}</li>
+            <label>Color</label><li class="list-group-item">{{ this.color }}</li>
+            <label>License Plate</label><li class="list-group-item">{{ this.licensePlate }}</li>
             <label>Price</label><li class="list-group-item">{{ this.price }}</li>
         </ul>
         <div class="card-body">
-            <a href="#" class="card-link">Edit</a>
+            <a href="/car/edit/{{this._id}}" class="card-link">Edit</a>
             <a href="#" class="card-link">Delete</a>
         </div>
     </div>
     {{/each }}
     <a href="/addcar">+</a>
+    </form>
 </body>
 </html>
 <!-- JavaScript Bundle with Popper -->

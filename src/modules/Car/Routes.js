@@ -5,10 +5,9 @@ const app = express();
 const carController = require('./controller');
 var router = express.Router();
 const multer  = require('multer');
+const carModel = require('../../models/Cars');
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, 'src/upload');
-    },
+    destination: 'src/upload',
     filename: function(req, file, cb) {
         cb(null,`${Date.now()}_${file.originalname}`);
     }
@@ -18,15 +17,18 @@ const upload = multer({
     limits: {
         fieldSize: 1024*1024*3
     }
-});
+}).single('carImage');
 
 
 
 router.get('/',carController.get)
-router.post('/store',upload.single('carImage'),carController.store)
+router.post('/store',upload,carController.store)
 router.get('/store/:id',carController.getById)
-router.put('/store/:id',carController.update)
+router.post('/update/',carController.update) // update data
+router.get('/edit/:id',carController.editId) // get data from ID
+router.post('/updateId',upload,carController.updateId) // update by ID
 router.delete('/store/:id',carController.remove)
+
     
 
 module.exports = router;  
