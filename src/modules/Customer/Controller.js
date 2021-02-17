@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt-nodejs');
 const { head } = require('./Routes');
 const { translateAliases } = require('../../models/Customers');
 const { render } = require('ejs');
+const express = require('express');
+
 
 
 
@@ -18,6 +20,7 @@ const get =(req,res)=> {
     })
 }
 
+// register
 const store = async(req,res) => {
     const { fristName, lastName, phoneNumber, email, password} = await req.body
     const salt = bcrypt.genSaltSync(10);
@@ -30,9 +33,11 @@ const store = async(req,res) => {
         email : email ,  
         password : passwordHash ,      
     })
+    console.log(customerData)
     await customerData.save()
     .then(result => {
-        res.send(result)
+        // res.send(result)
+        res.render('login')
         // res.status(201).send('item saved to database')
     })
     .catch(err => {
@@ -89,22 +94,34 @@ const register = (req,res) => {
     res.render('../../views/register.hbs')
 }
 
+const loginForm = (req,res) =>{
+    res.render('../../..views/login.hbs')
+}
 const login = async(req,res) => {
     console.log('-----------')
-    const email = await req.body.email
-    const password = await req.body.password
-    console.log(`email:${email} || password:${password}`)
-    const user = await customerModel.find({email:email})
-    if (user == null || user == undefined ){
-        res.send('ไม่มี email')
-    }else if ( user.length > 0 ) {
-        console.log(`user=>> ${user}`)
-        const passwordHash =  bcrypt.compareSync(password,user[0].password) // เปรียบเทียบ password ที่ถูก Hash 
-            if ( passwordHash == true ) {res.render('Carstore.hbs') } // รหัสผ่านถูกต้อง
-            else if ( passwordHash == false ){res.render('login.hbs')} // รหัสผ่านไม่ถูกต้อง
-    }else{
-       res.send('else')
-    }     
+    const {email, password} = await req.body
+    // console.log(`email:${email} || password:${password}`)
+    const data = await customerModel.find({email:email},(err,data)=>{
+                    if (err) {
+                        throw err
+                    } else if ( data.length == 0){
+                        console.log('ไม่มี email')
+                    } else if (data.length > 0 ){
+                        // console.log(data[0].password)// มี data 
+                        const passwordHash =  bcrypt.compareSync(password,data[0].password)
+                        if (passwordHash == true) {
+                            console.log("login succes")
+                            return res.redirect('/car/')
+                        } else if (passwordHash == false) {
+                            console.log("can't login")
+                            res.send({massage:"รหัสผ่านผิด"})
+                        } 
+                    }
+                })
+    if (data){
+        // access token 
+
+    }    
 }
 module.exports={
     get, 
@@ -114,4 +131,5 @@ module.exports={
     remove,
     register,
     login,
+    loginForm
 }

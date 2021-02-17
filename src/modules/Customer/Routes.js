@@ -3,6 +3,7 @@ const express = require('express');
 const customerModel = require('../../models/Customers');
 const app = express();
 const customerController = require('./controller');
+
 var router = express.Router();
 router.get('/register',(req,res) => {
     res.render('register.hbs');
@@ -16,5 +17,6 @@ router.get('/:id',customerController.getById)
 router.put('/:id',customerController.update)
 router.delete('/:id',customerController.remove)
 router.get('/register',customerController.register)
+router.get('/login',customerController.loginForm)
 router.post('/login',customerController.login)
 module.exports = router;  

@@ -25,6 +25,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 const { static } = require('express');
 const { session } = require('passport');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/upload/',express.static('upload'));
 
 app.use(bodyParser.json());
