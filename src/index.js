@@ -16,7 +16,7 @@ const customer = require('./modules/Customer/Routes');
 const item = require('./modules/Item/Routes');
 const order = require('./modules/Order/Routes');
 const car = require('./modules/Car/Routes');
-// const { nextTick } = require('process');
+
 app.use(express.json())
 app.use(express.static('views'))
 
