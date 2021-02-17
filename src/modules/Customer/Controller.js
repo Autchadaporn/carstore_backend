@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt-nodejs');
 const { head } = require('./Routes');
 const { translateAliases } = require('../../models/Customers');
 const { render } = require('ejs');
+const express = require('express');
+
 
 
 
@@ -18,6 +20,7 @@ const get =(req,res)=> {
     })
 }
 
+// register
 const store = async(req,res) => {
     const { fristName, lastName, phoneNumber, email, password} = await req.body
     const salt = bcrypt.genSaltSync(10);
@@ -32,7 +35,8 @@ const store = async(req,res) => {
     })
     await customerData.save()
     .then(result => {
-        res.send(result)
+        // res.send(result)
+        res.render('login')
         // res.status(201).send('item saved to database')
     })
     .catch(err => {
@@ -87,8 +91,7 @@ const remove = async(req,res) => {
 
 const login = async(req,res) => {
     console.log('-----------')
-    const email = await req.body.email
-    const password = await req.body.password
+    const {email, password} = await req.body
     console.log(`email:${email} || password:${password}`)
     const user = await customerModel.find({email:email})
     if (user == null || user == undefined ){
@@ -96,8 +99,14 @@ const login = async(req,res) => {
     }else if ( user.length > 0 ) {
         console.log(`user=>> ${user}`)
         const passwordHash =  bcrypt.compareSync(password,user[0].password) // เปรียบเทียบ password ที่ถูก Hash 
-            if ( passwordHash == true ) {res.render('Carstore.hbs') } // รหัสผ่านถูกต้อง
-            else if ( passwordHash == false ){res.render('login.hbs')} // รหัสผ่านไม่ถูกต้อง
+            if ( passwordHash == true ) {
+                console.log('รหัสผ่านถูกต้อง')
+                res.render('Carstore.hbs') 
+            } // รหัสผ่านถูกต้อง
+            else if ( passwordHash == false ){
+                console.log('รหัสไม่ผ่านถูกต้อง')
+                res.render('login.hbs')
+            } // รหัสผ่านไม่ถูกต้อง
     }else{
        res.send('else')
     }     

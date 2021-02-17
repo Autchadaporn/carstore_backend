@@ -3,6 +3,7 @@ const express = require('express');
 const customerModel = require('../../models/Customers');
 const app = express();
 const customerController = require('./controller');
+
 var router = express.Router();
 router.get('/register',(req,res) => {
     res.render('register.hbs');

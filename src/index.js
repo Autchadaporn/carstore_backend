@@ -21,6 +21,7 @@ const bodyParser = require('body-parser');
 const { static } = require('express');
 const { session } = require('passport');
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/upload/',express.static('upload'));
 
 app.set('views', __dirname + '/views'); // general config
