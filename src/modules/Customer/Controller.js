@@ -101,7 +101,7 @@ const login = async(req,res) => {
     console.log('-----------')
     const {email, password} = await req.body
     // console.log(`email:${email} || password:${password}`)
-    const data = await customerModel.find({email:email},(err,data)=>{
+    await customerModel.find({email:email},(err,data)=>{
                     if (err) {
                         throw err
                     } else if ( data.length == 0){
@@ -118,11 +118,7 @@ const login = async(req,res) => {
                         } 
                     }
                 })
-    if (data){
-        // access token 
-
-    }    
-}
+    }
 module.exports={
     get, 
     store,
