@@ -10,8 +10,8 @@ const { options } = require('./Routes')
 const get =(req,res)=> {
     carModel.find({})
     .then(result => {
-        res.status(200).render('Car/Carstore',{result:result})
-        // res.status(200).json(result)
+        // res.status(200).render('Car/Carstore',{result:result})
+        res.status(200).json(result)
     })
     .catch(err => {
         res.status(500).send('error')
@@ -31,8 +31,8 @@ const store = async(req,res) => {
     carData = new carModel(carData)
     await carData.save() 
     .then(result => {
-        // res.status(201).send('item saved to database')
-        res.redirect('/car/')
+        res.status(201).send('item saved to database')
+        // res.redirect('/car/')
       })
     .catch(err => {
         res.status(500).send('unable to save to database');
