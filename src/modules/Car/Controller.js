@@ -134,6 +134,15 @@ const deleteId = async(req,res) =>{
         res.send(err),json(err)
     })
 }
+
+const searchBrand = async(req,res) => {
+    const { brandId } = await req.body
+    console.log(brandId)
+    await carModel.find({brandId:brandId},(err,data)=> {
+        if (err) throw err
+        res.send(data)
+    })
+}
 module.exports={
     get, 
     store,
@@ -142,5 +151,6 @@ module.exports={
     remove,
     editId,
     updateId,
-    deleteId
+    deleteId,
+    searchBrand
 }

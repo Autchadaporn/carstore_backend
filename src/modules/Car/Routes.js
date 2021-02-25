@@ -29,6 +29,7 @@ router.get('/edit/:id',carController.editId) // get data from ID
 router.post('/updateId',upload,carController.updateId) // update by ID  (upload คือ middleware)
 router.delete('/store/:id',carController.remove)
 router.get('/delete/:id',carController.deleteId)
+router.post('/search',carController.searchBrand)
 
     
 
